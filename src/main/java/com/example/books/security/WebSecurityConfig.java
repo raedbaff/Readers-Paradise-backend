@@ -20,6 +20,8 @@ public class WebSecurityConfig {
     @Autowired
     private AuthEntryPoint authEntryPoint;
     @Autowired
+    private CustomAccessDeniedHandler customAccessDeniedHandler;
+    @Autowired
     UserDetailsServiceImp userDetailsService;
     @Autowired
     RequestFilter requestFilter;
@@ -28,11 +30,13 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(authEntryPoint))
+                .exceptionHandling(exception -> exception.accessDeniedHandler(customAccessDeniedHandler))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(requestFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/media/**").permitAll()
                         .requestMatchers("/api/status/**").permitAll()
+                        .requestMatchers("/api/books/").hasAuthority("ADMIN")
                         .anyRequest().authenticated());
 
         return http.build();

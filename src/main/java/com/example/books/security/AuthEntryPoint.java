@@ -24,7 +24,7 @@ public class AuthEntryPoint implements AuthenticationEntryPoint {
                 System.err.println("Unauthorized error: " + authException.getMessage());
                 response.setContentType(MediaType.APPLICATION_JSON_VALUE);
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                
+               
                 final Map<String, Object> body = new HashMap<>();
                 body.put("error", "unauthorized");
                 body.put("message", authException.getMessage());

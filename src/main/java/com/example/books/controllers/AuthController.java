@@ -48,7 +48,6 @@ public class AuthController {
     public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest data) {
         Optional<User> userByEmail = userRepository.getUserByEmail(data.getEmail());
         Optional<User> userByUsername = userRepository.getUserByUsername(data.getUsername());
-        System.err.println(userByEmail);
         if (userByEmail.isPresent()) {
             throw new ResourceAlreadyExistsException("user by the email " + data.getEmail() + " already exists");
         }
