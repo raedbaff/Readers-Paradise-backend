@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.books.mappers.BookMapper;
 import com.example.books.models.Book;
 import com.example.books.models.User;
 import com.example.books.models.UserBook;
 import com.example.books.payload.Request.CreateBookRequest;
+import com.example.books.payload.Response.BookMetaDataResponse;
 import com.example.books.payload.Response.CreateBookResponse;
 import com.example.books.services.BookService;
 
@@ -38,6 +40,12 @@ public class BookController {
         Book book = bookService.getAccessibleBook(id, user);
 
         return ResponseEntity.ok().body(book);
+    }
+
+    @GetMapping("/book-details/{id}")
+    public ResponseEntity<BookMetaDataResponse> getBookDetails(@PathVariable Long id) {
+        Book book = bookService.getBook(id);
+        return ResponseEntity.ok().body(BookMapper.toBookMetaDataResponse(book));
     }
 
     @PostMapping("/")

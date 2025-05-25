@@ -38,6 +38,8 @@ public class User implements UserDetails {
     private String photo;
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<UserBook> userBooks;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<BookReview> reviews;
     
 
     @Override

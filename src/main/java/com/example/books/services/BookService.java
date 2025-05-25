@@ -25,6 +25,9 @@ public class BookService {
     private UserBookRepository userBookRepository;
 
     public Book getBook(Long id) {
+        Book book = bookRepository.findById(id).orElse(null);
+        if (book == null)
+            throw new ResourceNotFoundException("The book you are looking for does not exist");
         return bookRepository.findById(id).orElse(null);
     }
 
@@ -35,7 +38,7 @@ public class BookService {
         if (book.isFree())
             return book;
         UserBook userBook = getByUserAndBook(user, book);
-        if (userBook != null && userBook.getRetunDate().isBefore(LocalDate.now())) {
+        if (userBook != null &&  userBook.getRetunDate() != null && userBook.getRetunDate().isBefore(LocalDate.now())) {
             expireBorrow(userBook.getId());
             throw new NotAllowedException("Borrow period expired");
         }
