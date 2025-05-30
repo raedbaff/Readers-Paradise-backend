@@ -1,6 +1,6 @@
 # Books Backend
 
-A backend service for managing books, built with Python and Django.
+A backend service for managing books, built with Springboot
 
 ## Features
 
