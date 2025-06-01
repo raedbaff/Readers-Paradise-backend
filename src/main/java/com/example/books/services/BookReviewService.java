@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.example.books.Repositories.BookReviewRepository;
 import com.example.books.exceptions.NotAllowedException;
@@ -13,13 +14,14 @@ import com.example.books.models.Book;
 import com.example.books.models.BookReview;
 import com.example.books.models.User;
 
+@Service
 public class BookReviewService {
     @Autowired
     private BookReviewRepository bookReviewRepository;
     @Autowired
     private BookService bookService;
 
-    BookReview createReview(Long bookId, User user, Float rating, String comment) {
+    public BookReview createReview(Long bookId, User user, Float rating, String comment) {
         Book book = bookService.getBook(bookId);
         if (book == null) {
             throw new ResourceNotFoundException("The book you are trying to review does not exist");
@@ -36,14 +38,14 @@ public class BookReviewService {
         return bookReviewRepository.save(bookReview);
 
     }
-    List<BookReview> getReviewsByBook(Long bookId) {
+    public List<BookReview> getReviewsByBook(Long bookId) {
         Book book = bookService.getBook(bookId);
         if (book == null) {
             throw new ResourceNotFoundException("The book you are trying to get reviews for does not exist");
         }
         return bookReviewRepository.findByBookId(bookId);
     }
-    BookReview editReview(Long reviewId, User user, Float rating, String comment) {
+    public BookReview editReview(Long reviewId, User user, Float rating, String comment) {
         Optional<BookReview> bookReview = bookReviewRepository.findById(reviewId);
         if (bookReview.isEmpty()) {
             throw new ResourceNotFoundException("The review you are trying to edit does not exist");
