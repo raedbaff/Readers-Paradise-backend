@@ -30,16 +30,9 @@ mvn install
 ```bash
 nvm exec:java
 ```
+## Swagger UI
 
-## API Endpoints
-
-| Method | Endpoint         | Description          |
-|--------|-----------------|----------------------|
-| GET    | /api/books/     | List all books       |
-| POST   | /api/books/     | Create a new book    |
-| GET    | /api/books/{id}/| Retrieve a book      |
-| PUT    | /api/books/{id}/| Update a book        |
-| DELETE | /api/books/{id}/| Delete a book        |
+To visit the API documentation visit **/swagger-ui/
 
 ## Contributing
 
