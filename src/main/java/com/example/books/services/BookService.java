@@ -1,6 +1,7 @@
 package com.example.books.services;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import com.example.books.models.Book;
 import com.example.books.models.User;
 import com.example.books.models.UserBook;
 import com.example.books.payload.Request.UpdateBookRequest;
+import com.example.books.payload.Response.SearchBook;
 
 @Service
 
@@ -81,6 +83,9 @@ public class BookService {
             return userBook.get();
         }
         return null;
+    }
+    public List<SearchBook> searchBooks(String query) {
+        return bookRepository.searchBooks(query);
     }
 
     public UserBook borrowBook(User user, Long id) {

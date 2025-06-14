@@ -1,6 +1,7 @@
 package com.example.books.controllers;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,10 @@ import com.example.books.models.Book;
 import com.example.books.models.User;
 import com.example.books.models.UserBook;
 import com.example.books.payload.Request.CreateBookRequest;
+import com.example.books.payload.Request.SearchBookRequest;
 import com.example.books.payload.Response.BookMetaDataResponse;
 import com.example.books.payload.Response.CreateBookResponse;
+import com.example.books.payload.Response.SearchBook;
 import com.example.books.services.BookService;
 
 import jakarta.validation.Valid;
@@ -81,5 +84,12 @@ public class BookController {
 
         return ResponseEntity.ok().body(response);
     }
+    @PostMapping("/search")
+    public ResponseEntity<?> searchBooks(@Valid @RequestBody SearchBookRequest query) {
+        List<SearchBook> books = bookService.searchBooks(query.getQuery());
+        
+        return ResponseEntity.ok().body(books);
+    }
+    
 
 }
