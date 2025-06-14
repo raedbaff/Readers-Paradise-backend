@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.books.Repositories.BookRepository;
@@ -85,7 +87,8 @@ public class BookService {
         return null;
     }
     public List<SearchBook> searchBooks(String query) {
-        return bookRepository.searchBooks(query);
+        Pageable pageable = PageRequest.of(0,10);
+        return bookRepository.searchBooks(query, pageable);
     }
 
     public UserBook borrowBook(User user, Long id) {

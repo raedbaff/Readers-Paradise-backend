@@ -16,14 +16,14 @@ import lombok.Setter;
 @Setter
 @Getter
 public class BookReview {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private Float rating;
-    private String comment;
-    @ManyToOne
-    private Book book;
-    @ManyToOne
-    private User user;
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+private Long id;
+private Float rating;
+private String comment;
+@ManyToOne
+private Book book;
+@ManyToOne
+private User user;
 
 }
